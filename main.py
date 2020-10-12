@@ -14,7 +14,9 @@ def download(url, local_filename):
     print(local_filename)
     response = requests.get(url)
     received = 0
-    assert response.status_code == 200
+    if response.status_code != 200:
+        print('error')
+        return
 
     with open(local_filename, 'wb') as f:
         for chunk in response.iter_content(chunk_size=1024):
@@ -60,7 +62,8 @@ def main():
 
             local_filename = os.path.join(dirname, filename)
             remote_file_data = MAIN_URL + category + filename
-            download(remote_file_data, local_filename)
+            if os.path.exists(local_filename):
+                download(remote_file_data, local_filename)
 
 
 if __name__ == '__main__':
