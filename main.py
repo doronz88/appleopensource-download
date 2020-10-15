@@ -62,7 +62,7 @@ def main():
 
             local_filename = os.path.join(dirname, filename)
             remote_file_data = MAIN_URL + category + filename
-            if os.path.exists(local_filename):
+            if not os.path.exists(local_filename):
                 download(remote_file_data, local_filename)
 
 
